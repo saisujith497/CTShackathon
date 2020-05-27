@@ -8,7 +8,7 @@ public class hack {
 
 	public static void main(String[] args) throws IOException 
 	{
-		double[] a = new double[10000];
+		double[] a = new double[1000];
 		JSONObject obj  = new JSONObject();
 		JSONObject obj1 = new JSONObject();
 		File f1 = new File("C:\\Users\\Bharath Reddy\\Desktop\\memory.txt");
@@ -27,12 +27,12 @@ public class hack {
                 	str=str.replaceAll("[^0-9]","");
                     str=str.trim();
                     temp=Integer.parseInt(str);
-                    a[i++]=temp/10000;
+                    a[i++]=temp/1000;
                 }
                 line++;
             }
             String str1;
-            for(int k=0;k<938;k++)
+            for(int k=0;k<937;k++)
             {
             	str1 = String.format("%d",k);
             	obj1.put(str1 + "s", a[k]);
@@ -40,7 +40,7 @@ public class hack {
             		max=a[k];
             	sum=sum+a[k];
             }
-            double average=sum/938;
+            double average=sum/937;
             DecimalFormat df = new DecimalFormat("#.###");
             df.setRoundingMode(RoundingMode.CEILING);
             obj.put("AverageMemory(MB)", df.format(average));
