@@ -1,0 +1,68 @@
+import java.util.*;
+import java.util.regex.Pattern;
+import java.io.*;
+import java.text.DecimalFormat;
+import java.math.RoundingMode;
+import java.io.FileNotFoundException;
+import org.json.JSONObject;
+public class actualhack {
+	public static void main(String[] args) throws IOException 
+	{
+		double[] a = new double[10000];
+		JSONObject obj  = new JSONObject();
+		JSONObject obj1 = new JSONObject();
+		File f1 = new File("C:\\Users\\Bharath Reddy\\Desktop\\cpu.txt");
+		try (BufferedReader bf = new BufferedReader(new FileReader(f1))) 
+        {
+            String readLine;
+            double temp;
+            int line = 0;
+            int i=0;
+            double sum=0.0;
+            double max = 0.0;
+            while ((readLine = bf.readLine()) != null) 
+            {
+            	   StringTokenizer st = new StringTokenizer(readLine, "      , ,  ,   ,");
+            	   ArrayList<String> tokenList = new ArrayList<>();
+            	   while(st.hasMoreTokens())
+            	   {
+            	   	tokenList.add(st.nextToken());
+            	   }
+                   temp=Double.parseDouble(tokenList.get(8));
+                    a[i++]=temp;
+                line++;
+            }
+            String str1;
+            for(int k=1;k<=680;k++)
+            {
+            	str1 = String.format("%d",k);
+            	obj1.put(str1 + "s", a[k-1]);
+            	if(max<a[k-1])
+            		max=a[k-1];
+            	sum=sum+a[k-1];
+            }
+            double average=sum/line;
+            DecimalFormat df = new DecimalFormat("#.##");
+            df.setRoundingMode(RoundingMode.CEILING);
+            obj.put("values: ", obj1);
+            System.out.println();
+            obj.put("maxcpu", df.format(max));
+            System.out.println();
+            obj.put("avgcpu", df.format(average));
+            System.out.println(obj);
+            try
+    		{
+    		
+    		FileWriter fw=new FileWriter("output.json");
+    		fw.write(obj.toString());
+    		fw.close();
+    		
+    		}
+    		catch(Exception e)
+    		{
+    			System.out.println(e);
+    		}
+
+         }
+ }
+}
