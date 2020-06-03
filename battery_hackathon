@@ -25,9 +25,9 @@ class batteryhackathon {
 			obj.put("Foreground_time", activities);
 			obj.put("Battery_percentage", (Float.parseFloat(drain) / 1000));
 			obj.put("Battery_drain", drain);
-			System.out.println(values);
+			System.out.println(obj);
 			FileWriter file = new FileWriter("output1.json");
-			file.write(values.toJSONString());
+			file.write(obj.toJSONString());
 			file.close();
 			flr.close();
 		} catch (Exception e) {
